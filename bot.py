@@ -11,7 +11,7 @@ class User:
     def __init__(self, city):
         self.city = city
 
-        keys = ['fullname', 'phone', 'yuk_Hajmi', 'qayerdan', 'qayerga', 'yuk_Turi', 'Xizmat_haqi', 'boshlangich_tulov']
+        keys = ['fullname', 'phone', 'yuk_Hajmi', 'qayerdan', 'qayerga', 'yuk_Turi', 'Xizmat_haqi', 'boshlangich_tulov', 'qushimcha_malumot']
         
         for key in keys:
             self.key = None
@@ -144,6 +144,18 @@ def process_phone_step(message):
         user = user_dict[chat_id]
         user.phone = message.text
 
+        msg = bot.send_message(chat_id, "Qo'shimcha Malumot Yozing:")
+        bot.register_next_step_handler(msg, process_qushimcha_malumot_step)
+
+    except Exception as e:
+        bot.reply_to(message, 'ooops!!')
+
+def process_qushimcha_malumot_step(message):
+    try:
+        chat_id = message.chat.id
+        user = user_dict[chat_id]
+        user.qushimcha_malumot = message.text
+
         markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
         itembtn2 = types.KeyboardButton('/elon_berish')
         itembtn1 = types.KeyboardButton('/Biz_haqimizda')
@@ -164,7 +176,7 @@ def process_phone_step(message):
 # нельзя делать перенос строки Template
 # в send_message должно стоять parse_mode="Markdown"
 def getRegData(user, title, name):
-    t = Template("$title *$name* \n FISH: *$fullname* \n Qayerdan: *$qayerdan* \n Qayerga: *$qayerga* \n Yuk turi: *$yuk_Turi* \n Yuk hajmi: *$yuk_Hajmi* \n Xizmat haqi: *$Xizmat_haqi*  \n Boshlangich to'lov: *$boshlangich_tulov* \n Telefon raqam: *$phone* ")
+    t = Template("$title *$name* \n FISH: *$fullname* \n Qayerdan: *$qayerdan* \n Qayerga: *$qayerga* \n Yuk turi: *$yuk_Turi* \n Yuk hajmi: *$yuk_Hajmi* \n Xizmat haqi: *$Xizmat_haqi*  \n Boshlangich to'lov: *$boshlangich_tulov* \n Telefon raqam: *$phone* \n Qo'shimcha Malumot: *$qushimcha_malumot*  ")
 
     return t.substitute({
         'title': title,
@@ -177,6 +189,8 @@ def getRegData(user, title, name):
         'Xizmat_haqi':user.Xizmat_haqi,
         'boshlangich_tulov':user.boshlangich_tulov,
         'phone': user.phone,
+        'qushimcha_malumot':user.qushimcha_malumot,
+
     })
 
 # произвольный текст
