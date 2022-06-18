@@ -186,10 +186,10 @@ def getRegData(user, title, name):
         'qayerga':user.qayerga,
         'yuk_Turi':user.yuk_Turi,
         'yuk_Hajmi':user.yuk_Hajmi,
-        'Xizmat_haqi':user.Xizmat_haqi,
-        'boshlangich_tulov':user.boshlangich_tulov,
+        'Xizmat_haqi':user.Xizmat_haqi + ' $',
+        'boshlangich_tulov':user.boshlangich_tulov + ' $',
         'phone': user.phone,
-        'qushimcha_malumot':user.qushimcha_malumot,
+        'qushimcha_malumot':user.qushimcha_malumot + "\n➜ Elon berish uchun  @logistic_company_bot" ,
 
     })
 
