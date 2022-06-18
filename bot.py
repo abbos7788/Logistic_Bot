@@ -189,9 +189,8 @@ def getRegData(user, title, name):
         'Xizmat_haqi':user.Xizmat_haqi + ' $',
         'boshlangich_tulov':user.boshlangich_tulov + ' $',
         'phone': user.phone,
-        'qushimcha_malumot':user.qushimcha_malumot + "\n➜ Elon berish uchun  @logistic_company_bot" ,
-
-    })
+        'qushimcha_malumot':user.qushimcha_malumot + "\n✉ Elon berish uchun  \n➜@logistic_company_bot" ,
+  
 
 # произвольный текст
 @bot.message_handler(content_types=["text"])
