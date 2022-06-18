@@ -106,7 +106,7 @@ def process_yuk_step(message):
         user = user_dict[chat_id]
         user.yuk_Hajmi = message.text
 
-        msg = bot.send_message(chat_id, 'Xizmat haqi:')
+        msg = bot.send_message(chat_id, 'Xizmat haqi (Dollarda $):')
         bot.register_next_step_handler(msg, process_xizmat_haqi_step)
 
     except Exception as e:
@@ -118,7 +118,7 @@ def process_xizmat_haqi_step(message):
         user = user_dict[chat_id]
         user.Xizmat_haqi = message.text
 
-        msg = bot.send_message(chat_id, "Boshlangich to'lov:")
+        msg = bot.send_message(chat_id, "Boshlangich to'lov (Dollarda $):")
         bot.register_next_step_handler(msg, process_boshlangich_tulov_step)
 
     except Exception as e:
@@ -165,7 +165,7 @@ def process_qushimcha_malumot_step(message):
         bot.send_message(chat_id, getRegData(user, "E'lon Beruvchi: ", message.from_user.first_name), parse_mode="Markdown", reply_markup=markup)
         # отправить в группу
         bot.send_message(config.chat_id, getRegData(user, "E'lon ushbu bot orqali yuborilmoqda: ", bot.get_me().username), parse_mode="Markdown")
-        bot.send_message(config.chat_id2, getRegData(user, "E'lon ushbu bot orqali yuborilmoqda: ", bot.get_me().username), parse_mode="Markdown")
+        bot.send_message(config.chat_id2, getRegData(user, "E'lon ushbu bot orqali yuborilmoqda: @logistic_company_bot", bot.get_me().username), parse_mode="Markdown")
 
     except Exception as e:
         bot.reply_to(message, 'Eloningiz Tayyor!')
@@ -175,8 +175,9 @@ def process_qushimcha_malumot_step(message):
 # формирует вид заявки регистрации
 # нельзя делать перенос строки Template
 # в send_message должно стоять parse_mode="Markdown"
+
 def getRegData(user, title, name):
-    t = Template("$title *$name* \n FISH: *$fullname* \n Qayerdan: *$qayerdan* \n Qayerga: *$qayerga* \n Yuk turi: *$yuk_Turi* \n Yuk hajmi: *$yuk_Hajmi* \n Xizmat haqi: *$Xizmat_haqi*  \n Boshlangich to'lov: *$boshlangich_tulov* \n Telefon raqam: *$phone* \n Qo'shimcha Malumot: *$qushimcha_malumot*  ")
+    t = Template(f"$title *$name* \n FISH: *$fullname* \n Qayerdan: *$qayerdan* \n Qayerga: *$qayerga* \n Yuk turi: *$yuk_Turi* \n Yuk hajmi: *$yuk_Hajmi* \n Xizmat haqi: *$Xizmat_haqi*  \n Boshlangich to'lov: *$boshlangich_tulov* \n Telefon raqam: *$phone* \n Qo'shimcha Malumot: *$qushimcha_malumot* ")
 
     return t.substitute({
         'title': title,
@@ -187,10 +188,11 @@ def getRegData(user, title, name):
         'yuk_Turi':user.yuk_Turi,
         'yuk_Hajmi':user.yuk_Hajmi,
         'Xizmat_haqi':user.Xizmat_haqi + ' $',
-        'boshlangich_tulov':user.boshlangich_tulov + ' $',
+        'boshlangich_tulov':user.boshlangich_tulov+ ' $',
         'phone': user.phone,
-        'qushimcha_malumot':user.qushimcha_malumot + "\n✉ Elon berish uchun  \n➜ @logistic_company_bot" ,
-  
+        'qushimcha_malumot':user.qushimcha_malumot + "\n \n✉ Elon berish uchun  \n➜ @logistic_company_bot",
+
+    })
 
 # произвольный текст
 @bot.message_handler(content_types=["text"])
