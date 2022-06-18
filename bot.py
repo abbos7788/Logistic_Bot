@@ -94,7 +94,7 @@ def process_turi_step(message):
         user = user_dict[chat_id]
         user.yuk_Turi = message.text
 
-        msg = bot.send_message(chat_id, 'Yukingiz xajmi:')
+        msg = bot.send_message(chat_id, 'Yukingiz xajmi (Tonnada):')
         bot.register_next_step_handler(msg, process_yuk_step)
 
     except Exception as e:
@@ -186,7 +186,7 @@ def getRegData(user, title, name):
         'qayerdan':user.qayerdan,
         'qayerga':user.qayerga,
         'yuk_Turi':user.yuk_Turi,
-        'yuk_Hajmi':user.yuk_Hajmi,
+        'yuk_Hajmi':user.yuk_Hajmi + ' tonna',
         'Xizmat_haqi':user.Xizmat_haqi + ' $',
         'boshlangich_tulov':user.boshlangich_tulov+ ' $',
         'phone': user.phone,
