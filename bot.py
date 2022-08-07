@@ -31,7 +31,7 @@ def send_welcome(message):
 # /about
 @bot.message_handler(commands=['Biz_haqimizda'])
 def send_about(message):
-	bot.send_message(message.chat.id, "Companiyamiz Logistica bozorida" 
+	bot.send_message(message.chat.id, "Salom Companiyamiz Logistica bozorida" 
     + " 1 yildan buyon faoliyat yuritib kelmoqda!")
 
 # /reg
